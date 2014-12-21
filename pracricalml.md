@@ -11,12 +11,6 @@ The goal of the current assignment is to create a working classificator of the w
 We start the assignment by loading data. The file is filled with different NA values, like empty cells or errors of previous calculations. We will label them accordingly. 
 
 
-```
-## Warning: package 'ggplot2' was built under R version 3.1.1
-## Warning: package 'caret' was built under R version 3.1.2
-```
-
-
 ```r
 set.seed(33833) # for consistensy of results
 train <- read.csv("pml-training.csv", quote="\"", header=TRUE, na.strings=c("NA","","#DIV/0!"))
@@ -47,72 +41,6 @@ t4_25 = t2[sample(nrow(t2),nrow(t2)*0.25),]
 rf_25 = train(classe ~., data=t4_25, method="rf",importance=TRUE,preProcess="pca")
 ```
 
-```
-## Loading required package: randomForest
-```
-
-```
-## Warning: package 'randomForest' was built under R version 3.1.2
-```
-
-```
-## randomForest 4.6-10
-## Type rfNews() to see new features/changes/bug fixes.
-```
-
-```
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-## Warning: invalid mtry: reset to within valid range
-```
-
 ```r
 results = confusionMatrix(predict(rf_25,t1),t1$classe)
 ```
@@ -123,19 +51,6 @@ As we know, in random forests, there is no need for cross-validation or a separa
 ```r
 test <- read.csv("pml-testing.csv", quote="\"", header=TRUE, na.strings=c("NA","","#DIV/0!"))
 answers = predict(rf_25, test) # this is to be uploaded to Coursera
-```
-
-```
-## Loading required package: randomForest
-```
-
-```
-## Warning: package 'randomForest' was built under R version 3.1.2
-```
-
-```
-## randomForest 4.6-10
-## Type rfNews() to see new features/changes/bug fixes.
 ```
 
 Model accuracy on train data is 0.945. The model accuracy on test set (while uploading to Coursera) was 90%. 
